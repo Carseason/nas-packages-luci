@@ -12,22 +12,10 @@ PKG_VERSION:=0.0.1
 PKG_RELEASE:=1
 LUCI_DEPENDS:=+luci-nginx
 
-define Package/nginx/conffiles
-/etc/config/nginx
-endef
-
-define Package/luci-nginxer/postinst
-	#!/bin/sh
-	/etc/init.d/uhttpd disable
-	/etc/init.d/nginx enabled
-	/etc/init.d/nginx start
-	exit 0
-endef
-
 define Package/luci-nginxer/postrm
 	#!/bin/sh
 	/etc/init.d/uhttpd enabled
-	/etc/init.d/uhttpd start
+	/etc/init.d/uhttpd reload
 	exit 0
 endef
 
